@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+          <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">
+                <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+                  <fa-icon icon="arrow-left"></fa-icon>&nbsp;
+                </button>
+                Product Details</h6>
+               
+          </div>
+            <div class="card-body pb-0" style="margin-bottom: 2%;">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <div class="ms-3">
+                            <div>
+                                <h4 class="card-title mb-2">{{product?.name}}</h4>
+                                <p class="mb-0 text-muted"> {{product?.description}}</p>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-md-12">
+                                    <div>
+                                      <!-- <p class="text-muted mb-2 fw-medium">{{product?.description}}
+                                      </p> -->
+                                      <p class="text-muted fw-medium mb-0"><span class="text-primary">
+                                        Category :: 
+                                      </span>{{product?.category}}
+                                        </p>
+                                       
+                                    </div>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+                <div>
+                  <button
+                type="submit"
+                [routerLink]="['/product', product?.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+                (click)="openAddStock()"
+              >
+                <fa-icon icon="plus"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Add Stocks</span>
+              </button>
+                </div>
+            </div><!-- end card body -->
+        </div><!-- end card -->
+        <div class="row">
+
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                              Selling Price</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.sellingPrice}}</div>
+                        </div>
+                        <div class="col-auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          <!-- Earnings (Monthly) Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Current Stock Quantity</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.stockSummary?.currentStockQuantity}}</div>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    
+          <!-- Earnings (Monthly) Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Purchase Price</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.purchasePrice}}</div>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                              Last Purchase Price</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.stockSummary?.lastPurchasePrice}}</div>
+                        </div>
+                        <div class="col-auto">
+                          {{product?.stockSummary?.lastPurchaseDate | formatMediumDate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+          <div class="card border-left-success shadow h-100 py-2">
+              <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Last Purchase Quantity</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.stockSummary?.lastPurchaseQuantity}}</div>
+                      </div>
+                      <div class="col-auto">
+                          {{product?.stockSummary?.lastPurchaseDate | formatMediumDate}}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                          Total Sale Quantity</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.stockSummary?.totalSaleQuantityTillDate}}</div>
+                    </div>
+                    <div class="col-auto">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+          <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                      Total Sale In Price</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.stockSummary?.totalSaleTillDate}}</div>
+                  </div>
+                  <div class="col-auto">
+                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                    Profit Till Date</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{product?.totalProfit}}</div>
+                </div>
+                <div class="col-auto">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+  </div>

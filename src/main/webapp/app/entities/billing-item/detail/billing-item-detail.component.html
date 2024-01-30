@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="billingItem">
+      <h2 data-cy="billingItemDetailsHeading">
+        <span jhiTranslate="shannoAppUiApp.billingItem.detail.title"
+          >__jhiTransformTranslate__('shannoAppUiApp.billingItem.detail.title')</span
+        >
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="shannoAppUiApp.billingItem.id">__jhiTransformTranslate__('shannoAppUiApp.billingItem.id')</span></dt>
+        <dd>
+          <span>{{ billingItem.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.billingItem.quantity">__jhiTransformTranslate__('shannoAppUiApp.billingItem.quantity')</span>
+        </dt>
+        <dd>
+          <span>{{ billingItem.quantity }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.billingItem.unitPrice">__jhiTransformTranslate__('shannoAppUiApp.billingItem.unitPrice')</span>
+        </dt>
+        <dd>
+          <span>{{ billingItem.unitPrice }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.billingItem.adjustPrice"
+            >__jhiTransformTranslate__('shannoAppUiApp.billingItem.adjustPrice')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ billingItem.adjustPrice }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/billing-item', billingItem.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

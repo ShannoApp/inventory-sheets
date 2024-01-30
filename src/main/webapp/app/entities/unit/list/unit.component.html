@@ -1,0 +1,103 @@
+<div>
+  <h2 id="page-heading" data-cy="UnitHeading">
+    <span jhiTranslate="shannoAppUiApp.unit.home.title">__jhiTransformTranslate__('shannoAppUiApp.unit.home.title')</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.unit.home.refreshListLabel"
+          >Refresh Table</span
+        >
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-unit"
+        [routerLink]="['/unit/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.unit.home.createLabel">Create New</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="units?.length === 0">
+    <span jhiTranslate="shannoAppUiApp.unit.home.notFound">__jhiTransformTranslate__('shannoAppUiApp.unit.home.notFound')</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="units && units.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.unit.id">__jhiTransformTranslate__('shannoAppUiApp.unit.id')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.unit.name">__jhiTransformTranslate__('shannoAppUiApp.unit.name')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.unit.description">__jhiTransformTranslate__('shannoAppUiApp.unit.description')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdDate">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.unit.createdDate">__jhiTransformTranslate__('shannoAppUiApp.unit.createdDate')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modifiedDate">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.unit.modifiedDate">__jhiTransformTranslate__('shannoAppUiApp.unit.modifiedDate')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let unit of units; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/unit', unit.id, 'view']">{{ unit.id }}</a>
+          </td>
+          <td>{{ unit.name }}</td>
+          <td>{{ unit.description }}</td>
+          <td>{{ unit.createdDate | formatMediumDatetime }}</td>
+          <td>{{ unit.modifiedDate | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/unit', unit.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">__jhiTransformTranslate__('entity.action.view')</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/unit', unit.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">__jhiTransformTranslate__('entity.action.edit')</span>
+              </button>
+
+              <button type="submit" (click)="delete(unit)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"
+                  >Delete</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

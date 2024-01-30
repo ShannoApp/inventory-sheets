@@ -1,0 +1,152 @@
+<div>
+  <h2 id="page-heading" data-cy="StockSummaryHeading">
+    <span jhiTranslate="shannoAppUiApp.stockSummary.home.title">__jhiTransformTranslate__('shannoAppUiApp.stockSummary.home.title')</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.stockSummary.home.refreshListLabel"
+          >Refresh Table</span
+        >
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-stock-summary"
+        [routerLink]="['/stock-summary/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.stockSummary.home.createLabel"
+          >Create New</span
+        >
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="stockSummaries?.length === 0">
+    <span jhiTranslate="shannoAppUiApp.stockSummary.home.notFound"
+      >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.home.notFound')</span
+    >
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="stockSummaries && stockSummaries.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.id">__jhiTransformTranslate__('shannoAppUiApp.stockSummary.id')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="currentStockQuantity">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.currentStockQuantity"
+                >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.currentStockQuantity')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="minimumStockQuantity">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.minimumStockQuantity"
+                >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.minimumStockQuantity')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="maximumStockQuantity">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.maximumStockQuantity"
+                >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.maximumStockQuantity')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="lastPurchaseDate">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.lastPurchaseDate"
+                >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastPurchaseDate')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="lastPurchaseQuantity">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.lastPurchaseQuantity"
+                >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastPurchaseQuantity')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="lastSaleDate">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.lastSaleDate"
+                >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastSaleDate')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="lastSaleQuantity">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.stockSummary.lastSaleQuantity"
+                >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastSaleQuantity')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stockSummary of stockSummaries; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/stock-summary', stockSummary.id, 'view']">{{ stockSummary.id }}</a>
+          </td>
+          <td>{{ stockSummary.currentStockQuantity }}</td>
+          <td>{{ stockSummary.minimumStockQuantity }}</td>
+          <td>{{ stockSummary.maximumStockQuantity }}</td>
+          <td>{{ stockSummary.lastPurchaseDate | formatMediumDate }}</td>
+          <td>{{ stockSummary.lastPurchaseQuantity }}</td>
+          <td>{{ stockSummary.lastSaleDate | formatMediumDate }}</td>
+          <td>{{ stockSummary.lastSaleQuantity }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/stock-summary', stockSummary.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">__jhiTransformTranslate__('entity.action.view')</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/stock-summary', stockSummary.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">__jhiTransformTranslate__('entity.action.edit')</span>
+              </button>
+
+              <button type="submit" (click)="delete(stockSummary)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"
+                  >Delete</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

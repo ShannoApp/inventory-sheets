@@ -1,0 +1,92 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="stockSummary">
+      <h2 data-cy="stockSummaryDetailsHeading">
+        <span jhiTranslate="shannoAppUiApp.stockSummary.detail.title"
+          >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.detail.title')</span
+        >
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="shannoAppUiApp.stockSummary.id">__jhiTransformTranslate__('shannoAppUiApp.stockSummary.id')</span></dt>
+        <dd>
+          <span>{{ stockSummary.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.stockSummary.currentStockQuantity"
+            >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.currentStockQuantity')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ stockSummary.currentStockQuantity }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.stockSummary.minimumStockQuantity"
+            >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.minimumStockQuantity')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ stockSummary.minimumStockQuantity }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.stockSummary.maximumStockQuantity"
+            >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.maximumStockQuantity')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ stockSummary.maximumStockQuantity }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.stockSummary.lastPurchaseDate"
+            >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastPurchaseDate')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ stockSummary.lastPurchaseDate | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.stockSummary.lastPurchaseQuantity"
+            >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastPurchaseQuantity')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ stockSummary.lastPurchaseQuantity }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.stockSummary.lastSaleDate"
+            >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastSaleDate')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ stockSummary.lastSaleDate | formatMediumDate }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.stockSummary.lastSaleQuantity"
+            >__jhiTransformTranslate__('shannoAppUiApp.stockSummary.lastSaleQuantity')</span
+          >
+        </dt>
+        <dd>
+          <span>{{ stockSummary.lastSaleQuantity }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/stock-summary', stockSummary.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

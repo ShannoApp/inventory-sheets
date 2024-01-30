@@ -1,0 +1,51 @@
+{
+  "applications": "*",
+  "changelogDate": "20240118185738",
+  "entityTableName": "stock_summary",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currentStockQuantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "minimumStockQuantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "maximumStockQuantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "lastPurchaseDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "lastPurchaseQuantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "lastSaleDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "lastSaleQuantity",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "name": "StockSummary",
+  "relationships": []
+}

@@ -1,0 +1,61 @@
+<form class="container mt-3">
+  <h3>Payments</h3>
+  <!-- Payment Status and Due Amount -->
+  <div class="form-group" style="float: inline-end;">
+    <label for="paymentStatus">Payment Status:</label>
+    <label for="paymentStatus">{{ payment?.paymentStatus }}</label>
+  </div>
+
+  <div class="form-group">
+    <label for="dueAmount">Due Amount:</label>
+    <label for="dueAmount">{{ due }}</label>
+  </div>
+
+  <!-- Payment History Table -->
+  <div class="table-responsive mb-2" style="border-style: solid;">
+    <h6>Payment History</h6>
+    <table class="table table-bordered table-sm">
+      <thead>
+        <tr>
+          <th>Payment Date</th>
+          <th>Amount</th>
+          <th>Payment Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let paymentDetail of existingDetails;">
+          <td>{{ paymentDetail?.paymentDate | formatMediumDate}}</td>
+          <td>{{ paymentDetail?.amount }}</td>
+          <td>{{ paymentDetail?.paymentType }}</td>
+        </tr>
+        <div>new Payments</div>
+        <tr *ngFor="let paymentDetail of detailsArray;let i = index;">
+          <td>{{ paymentDetail?.paymentDate | formatMediumDate}}</td>
+          <td><input type="number" id="amount" (change)="manageAmountChange(paymentDetail.amount??0)" 
+            [(ngModel)]="paymentDetail.amount" class="form-control input-sm"
+            [ngModelOptions]="{ standalone: true }">
+            <div *ngIf="errorMgs != null">
+              <small
+                class="form-text text-danger"
+                jhiTranslate="entity.validation.required"
+                >{{errorMgs}}</small
+              >
+            </div></td>
+          <td>
+            <select id="paymentType" [(ngModel)]="paymentDetail.paymentType" class="form-control" [ngModelOptions]="{ standalone: true }">
+              <option [value]="null" disabled>Select Payment Type</option>
+              <option [value]="type" *ngFor="let type of paymentTypeOptions">{{ type }}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add Payment Detail Button -->
+  <button type="button" (click)="addPaymentDetail()" class="btn btn-primary mt-3">Add Payment</button>
+
+  <!-- Cancel and Submit Buttons -->
+  <button type="button" (click)="cancel()" class="btn btn-primary mt-3">Cancel</button>
+  <button type="button" (click)="submitForm()" class="btn btn-success mt-3" [disabled]="errorMgs != null && this.detailsArray.length > 0">Submit</button>
+</form>

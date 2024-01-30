@@ -1,0 +1,228 @@
+<div>
+  <h2 id="page-heading" data-cy="ProductHeading">
+    <span jhiTranslate="shannoAppUiApp.product.home.title">Products</span>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.product.home.refreshListLabel"
+          >Refresh Table</span
+        >
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-product"
+        [routerLink]="['/product/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.product.home.createLabel"
+          >Create New</span
+        >
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+<!-- DataTales Example -->
+    <!-- <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Pro</h6>
+    </div> -->
+    <div class="d-flex justify-content">
+      <input type="text" class="form-control m-2" placeholder="search name" (input)="onInputChange($event)">
+      <select class="form-control m-2" placeholder="search name" (input)="onCategoryChange($event)">
+      <option value="All">All Category</option>
+      <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
+      </select>
+    </div>
+    <div *ngIf="products && products.length > 0;">
+        <div class="table-responsive">
+            <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+                    <!-- <th scope="col" jhiSortBy="id">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.id">ID</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th> -->
+                    <th scope="col" jhiSortBy="name">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.name">Name</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <!-- <th scope="col" jhiSortBy="description">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.description">Description</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th> -->
+                    <th scope="col" jhiSortBy="unit">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.unit">Unit</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <th scope="col" jhiSortBy="sellingPrice">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.sellingPrice"
+                          >Selling Price</span
+                        >
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <th scope="col" jhiSortBy="purchasePrice">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.purchasePrice"
+                          >Purchase Price</span
+                        >
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+
+                    <th scope="col" jhiSortBy="location">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.location">Location</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+                    
+                    <th scope="col" jhiSortBy="name">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.name">Name</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <th scope="col" jhiSortBy="unit">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.unit">Unit</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <th scope="col" jhiSortBy="sellingPrice">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.sellingPrice"
+                          >Selling Price</span
+                        >
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <th scope="col" jhiSortBy="purchasePrice">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.purchasePrice"
+                          >Purchase Price</span
+                        >
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                   
+                    <th scope="col" jhiSortBy="location">
+                      <div class="d-flex">
+                        <span jhiTranslate="shannoAppUiApp.product.location">Location</span>
+                        <fa-icon class="p-1" icon="sort"></fa-icon>
+                      </div>
+                    </th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  <tr *ngFor="let product of products; trackBy: trackId" data-cy="entityTable">
+                    <!-- <td>
+                      <a [routerLink]="['/product', product.id, 'view']">{{ product.id }}</a>
+                    </td> -->
+                    <td>{{ product.name }}</td>
+                    <!-- <td>{{ product.description }}</td> -->
+                    <td>{{ product.unit?.name }}</td>
+                    <td>{{ product.sellingPrice }}</td>
+                    <td>{{ product.purchasePrice }}</td>
+                    <!-- <td>{{ product.minStockToMaintain }}</td> -->
+                    <!-- <td>{{ product.openingQuantity }}</td> -->
+                    <!-- <td>{{ product.asOfDate | formatMediumDate }}</td> -->
+                    <td>{{ product.location }}</td>
+                    <td></td>
+                    <!-- <td>{{ product.createdDate | formatMediumDatetime }}</td>
+                    <td>{{ product.modifiedDate | formatMediumDatetime }}</td> -->
+                    <td class="text-end">
+                      <div class="btn-group">
+                        <button
+                          type="submit"
+                          [routerLink]="['/product', product.id, 'view']"
+                          class="btn btn-info btn-sm"
+                          data-cy="entityDetailsButton"
+                        >
+                          <fa-icon icon="eye"></fa-icon>
+                          <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+          
+                        <button
+                          type="submit"
+                          [routerLink]="['/product', product.id, 'edit']"
+                          class="btn btn-primary btn-sm"
+                          data-cy="entityEditButton"
+                        >
+                          <fa-icon icon="pencil-alt"></fa-icon>
+                          <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+          
+                        <button type="submit" (click)="delete(product)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                          <fa-icon icon="times"></fa-icon>
+                          <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"
+                            >Delete</span
+                          >
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+  <div class="alert alert-warning" id="no-result" *ngIf="products?.length === 0">
+    <span jhiTranslate="shannoAppUiApp.product.home.notFound">Not Found</span>
+  </div>
+
+</div>
+
+<div class="d-flex justify-content-center">
+  <!--Pagination -->
+  <nav class="my-4 pt-2">
+      <ul class="pagination pagination-circle pg-blue mb-0">
+          <!--First-->
+          <li class="page-item disabled clearfix d-none d-md-block"><a class="page-link">First</a></li>
+          <!--Arrow left-->
+          <li class="page-item disabled">
+              <a class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                  </a>
+          </li>
+          <!--Numbers-->
+          <li class="page-item active" *ngFor="let product of products; let i = index;">
+            <a class="page-link">{{i+1}}</a>
+          </li>
+          <!--Arrow right-->
+          <li class="page-item">
+              <a class="page-link" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                  </a>
+          </li>
+          <!--First-->
+          <li class="page-item clearfix d-none d-md-block"><a class="page-link">Last</a></li>
+      </ul>
+  </nav>
+  <!--/Pagination -->
+</div>

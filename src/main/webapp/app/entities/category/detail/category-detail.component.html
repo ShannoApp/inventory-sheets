@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="category">
+      <h2 data-cy="categoryDetailsHeading">
+        <span jhiTranslate="shannoAppUiApp.category.detail.title">__jhiTransformTranslate__('shannoAppUiApp.category.detail.title')</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="shannoAppUiApp.category.id">__jhiTransformTranslate__('shannoAppUiApp.category.id')</span></dt>
+        <dd>
+          <span>{{ category.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.category.name">__jhiTransformTranslate__('shannoAppUiApp.category.name')</span></dt>
+        <dd>
+          <span>{{ category.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.category.description">__jhiTransformTranslate__('shannoAppUiApp.category.description')</span>
+        </dt>
+        <dd>
+          <span>{{ category.description }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.category.createdDate">__jhiTransformTranslate__('shannoAppUiApp.category.createdDate')</span>
+        </dt>
+        <dd>
+          <span>{{ category.createdDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.category.modifiedDate">__jhiTransformTranslate__('shannoAppUiApp.category.modifiedDate')</span>
+        </dt>
+        <dd>
+          <span>{{ category.modifiedDate | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/category', category.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

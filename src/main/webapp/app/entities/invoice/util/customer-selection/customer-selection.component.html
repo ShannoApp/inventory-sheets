@@ -1,0 +1,21 @@
+<div class="customer-list">
+  <div class="m-3">
+    <h4>Add Customer To Order</h4>
+    <input type="text" class="form-control mb-2 mt-2" placeholder="search by name or phone" (input)="onInputChange($event)">
+    <!-- <div *ngFor="let customer of customers" class="customer-item" (click)="selectCustomer(customer)">
+      {{ customer.firstName }} {{ customer.lastName }}
+    </div> -->
+  </div>
+    <div style="height: 400px;
+      overflow: auto;">
+        <div *ngFor="let customer of customers" class="customer-item" (click)="selectCustomer(customer)">
+          <div class="card m-2" style="width: 98%;
+          background-color: wheat;">
+            <div class="card-body">
+              <h5 class="card-title">{{ customer.firstName }} {{ customer.lastName }}</h5>
+              <p class="card-text">{{customer.phone}}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>

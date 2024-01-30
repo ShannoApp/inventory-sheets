@@ -1,0 +1,140 @@
+<div>
+  <h2 id="page-heading" data-cy="BusinessHeading">
+    <span jhiTranslate="shannoAppUiApp.business.home.title">__jhiTransformTranslate__('shannoAppUiApp.business.home.title')</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.business.home.refreshListLabel"
+          >Refresh Table</span
+        >
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-business"
+        [routerLink]="['/business/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.business.home.createLabel"
+          >Create New</span
+        >
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="businesses?.length === 0">
+    <span jhiTranslate="shannoAppUiApp.business.home.notFound">__jhiTransformTranslate__('shannoAppUiApp.business.home.notFound')</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="businesses && businesses.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">__jhiTransformTranslate__('global.field.id')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.business.name">__jhiTransformTranslate__('shannoAppUiApp.business.name')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="website">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.business.website">__jhiTransformTranslate__('shannoAppUiApp.business.website')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="email">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.business.email">__jhiTransformTranslate__('shannoAppUiApp.business.email')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="isDeflaut">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.business.isDeflaut">__jhiTransformTranslate__('shannoAppUiApp.business.isDeflaut')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="phone">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.business.phone">__jhiTransformTranslate__('shannoAppUiApp.business.phone')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdDate">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.business.createdDate"
+                >__jhiTransformTranslate__('shannoAppUiApp.business.createdDate')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modifiedDate">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.business.modifiedDate"
+                >__jhiTransformTranslate__('shannoAppUiApp.business.modifiedDate')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let business of businesses; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/business', business.id, 'view']">{{ business.id }}</a>
+          </td>
+          <td>{{ business.name }}</td>
+          <td>{{ business.website }}</td>
+          <td>{{ business.email }}</td>
+          <td>{{ business.isDeflaut }}</td>
+          <td>{{ business.phone }}</td>
+          <td>{{ business.createdDate | formatMediumDatetime }}</td>
+          <td>{{ business.modifiedDate | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/business', business.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">__jhiTransformTranslate__('entity.action.view')</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/business', business.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">__jhiTransformTranslate__('entity.action.edit')</span>
+              </button>
+
+              <button type="submit" (click)="delete(business)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"
+                  >Delete</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

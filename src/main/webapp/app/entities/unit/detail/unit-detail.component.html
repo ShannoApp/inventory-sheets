@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="unit">
+      <h2 data-cy="unitDetailsHeading">
+        <span jhiTranslate="shannoAppUiApp.unit.detail.title">__jhiTransformTranslate__('shannoAppUiApp.unit.detail.title')</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="shannoAppUiApp.unit.id">__jhiTransformTranslate__('shannoAppUiApp.unit.id')</span></dt>
+        <dd>
+          <span>{{ unit.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.unit.name">__jhiTransformTranslate__('shannoAppUiApp.unit.name')</span></dt>
+        <dd>
+          <span>{{ unit.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.unit.description">__jhiTransformTranslate__('shannoAppUiApp.unit.description')</span></dt>
+        <dd>
+          <span>{{ unit.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.unit.createdDate">__jhiTransformTranslate__('shannoAppUiApp.unit.createdDate')</span></dt>
+        <dd>
+          <span>{{ unit.createdDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.unit.modifiedDate">__jhiTransformTranslate__('shannoAppUiApp.unit.modifiedDate')</span></dt>
+        <dd>
+          <span>{{ unit.modifiedDate | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/unit', unit.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

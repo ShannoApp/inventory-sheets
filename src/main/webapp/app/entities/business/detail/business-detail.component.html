@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="business">
+      <h2 data-cy="businessDetailsHeading">
+        <span jhiTranslate="shannoAppUiApp.business.detail.title">__jhiTransformTranslate__('shannoAppUiApp.business.detail.title')</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">__jhiTransformTranslate__('global.field.id')</span></dt>
+        <dd>
+          <span>{{ business.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.business.name">__jhiTransformTranslate__('shannoAppUiApp.business.name')</span></dt>
+        <dd>
+          <span>{{ business.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.business.website">__jhiTransformTranslate__('shannoAppUiApp.business.website')</span></dt>
+        <dd>
+          <span>{{ business.website }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.business.email">__jhiTransformTranslate__('shannoAppUiApp.business.email')</span></dt>
+        <dd>
+          <span>{{ business.email }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.business.isDeflaut">__jhiTransformTranslate__('shannoAppUiApp.business.isDeflaut')</span>
+        </dt>
+        <dd>
+          <span>{{ business.isDeflaut }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.business.phone">__jhiTransformTranslate__('shannoAppUiApp.business.phone')</span></dt>
+        <dd>
+          <span>{{ business.phone }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.business.createdDate">__jhiTransformTranslate__('shannoAppUiApp.business.createdDate')</span>
+        </dt>
+        <dd>
+          <span>{{ business.createdDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.business.modifiedDate">__jhiTransformTranslate__('shannoAppUiApp.business.modifiedDate')</span>
+        </dt>
+        <dd>
+          <span>{{ business.modifiedDate | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/business', business.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

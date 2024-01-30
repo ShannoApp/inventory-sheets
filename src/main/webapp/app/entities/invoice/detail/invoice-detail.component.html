@@ -1,0 +1,150 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12 d-flex justify-content-between align-items-center mt-4">
+      <div>
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+        </button>
+        <button type="submit" (click)="downloadPdf()" class="btn btn-primary ml-2" data-cy="entityDetailsBackButton">
+          <span>Download</span>
+        </button>
+        <button type="submit" (click)="addPayment()" class="btn btn-primary ml-2" data-cy="entityDetailsBackButton">
+          <span>Add Payment</span>
+        </button>
+      </div>
+      <!-- <div class="form-check form-switch">
+        <input
+          style="width: 54px; height: 29px; border-style: solid; border-width: 2px 2px 2px 2px; border-color: darkblue"
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          [checked]="this.invoice!.paid"
+          (change)="isPaid($event)"
+          id="flexSwitchCheckDefault"
+        />
+        <label style="font-size: x-large; font-weight: 900" class="form-check-label" for="flexSwitchCheckDefault">Paid</label>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="row mt-4" id="invoice-detail">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="invoice-container">
+            <div class="invoice-header">
+              <div class="row">
+                <div class="col-md-5">
+                  <h3>{{ invoice?.businessName?.toUpperCase() }}</h3>
+                </div>
+                <div class="col-md-5 text-md-right">
+                  <address>
+                    {{ invoice?.businessWebsite }}<br />
+                    {{ invoice?.businessEmail }}<br />
+                    {{ invoice?.businessPhone }}<br />
+                  </address>
+                </div>
+                <div
+                  style="color: white; font-size: x-large; text-align: center"
+                  *ngIf="invoice?.payment?.paymentStatus == 'Pending'"
+                  class="col-md-2 text-md-right bg-danger"
+                >
+                  Not Paid
+                </div>
+                <div
+                  style="color: white; font-size: x-large; text-align: center"
+                  *ngIf="invoice?.payment?.paymentStatus == 'Paid'"
+                  class="col-md-2 text-md-right bg-success"
+                >
+                  Paid
+                </div>
+                <div
+                  style="color: white; font-size: x-large; text-align: center"
+                  *ngIf="invoice?.payment?.paymentStatus == 'Partial'"
+                  class="col-md-2 text-md-right bg-warning"
+                >
+                  Paid Partial
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-md-9">
+                  <div class="invoice-details">
+                    <address>{{ invoice?.customerName}}<br /></address>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="invoice-details">
+                    <div class="invoice-num">
+                      <div>Invoice - #{{ invoice?.invoiceNumber }}</div>
+                      <div>Issue Date - {{ invoice?.issueDate | formatMediumDate }}</div>
+                      <div>Due Date - {{ invoice?.dueDate | formatMediumDate }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="invoice-body mt-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                    <table class="table custom-table m-0">
+                      <thead>
+                        <tr>
+                          <th>Items</th>
+                          <th>Unit Price</th>
+                          <th>Quantity</th>
+                          <th>Unit</th>
+                          <th>Sub Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of invoice?.billingItems">
+                          <td>
+                            {{ item.name }}
+                          </td>
+                          <td>{{ item.adjustPrice }}</td>
+                          <td>{{ item.quantity }}</td>
+                          <td>{{ item.unit }}</td>
+                          <td>{{ item.total}}</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td colspan="2">
+                            <span>Subtotal</span><br />
+                            <span>Discount </span><br />
+                            <span>Tax</span><br />
+                            <span>Shipping &amp; Handling</span>
+                            <h5 class="text-success mt-3"><strong>Grand Total</strong></h5>
+                          </td>
+                          <td style="text-align: right">
+                            <span>&#8377;{{ invoice?.amount }}</span
+                            ><br />
+                            <span *ngIf="invoice?.discount! > 0">&#8377;{{ invoice?.discount }}</span
+                            ><br />
+                            <span *ngIf="invoice?.tax! > 0">&#8377;{{ invoice?.tax }}</span
+                            ><br />
+                            <span *ngIf="invoice?.shippingCharges! > 0">&#8377;{{ invoice?.shippingCharges }}</span
+                            ><br />
+                            <h5 class="text-success mt-3">
+                              <strong>&#8377;{{ invoice?.totalAmount }}</strong>
+                            </h5>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="invoice-footer mt-3">Thank you for your Business.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

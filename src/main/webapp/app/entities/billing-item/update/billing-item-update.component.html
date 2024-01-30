@@ -1,0 +1,135 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-billing-item-heading"
+        data-cy="BillingItemCreateUpdateHeading"
+        jhiTranslate="shannoAppUiApp.billingItem.home.createOrEditLabel"
+      >
+        Create Or Edit
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.billingItem.id" for="field_id">Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="id"
+            id="field_id"
+            data-cy="id"
+            formControlName="id"
+            [readonly]="editForm.get('id')!.value != null"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.billingItem.quantity" for="field_quantity">Quantity</label>
+          <input type="number" class="form-control" name="quantity" id="field_quantity" data-cy="quantity" formControlName="quantity" />
+          <div *ngIf="editForm.get('quantity')!.invalid && (editForm.get('quantity')!.dirty || editForm.get('quantity')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('quantity')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+              >__jhiTransformTranslate__('entity.validation.required')</small
+            >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('quantity')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 1</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('quantity')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.billingItem.unitPrice" for="field_unitPrice">Unit Price</label>
+          <input type="number" class="form-control" name="unitPrice" id="field_unitPrice" data-cy="unitPrice" formControlName="unitPrice" />
+          <div *ngIf="editForm.get('unitPrice')!.invalid && (editForm.get('unitPrice')!.dirty || editForm.get('unitPrice')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('unitPrice')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+              >__jhiTransformTranslate__('entity.validation.required')</small
+            >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('unitPrice')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('unitPrice')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.billingItem.adjustPrice" for="field_adjustPrice">Adjust Price</label>
+          <input
+            type="number"
+            class="form-control"
+            name="adjustPrice"
+            id="field_adjustPrice"
+            data-cy="adjustPrice"
+            formControlName="adjustPrice"
+          />
+          <div *ngIf="editForm.get('adjustPrice')!.invalid && (editForm.get('adjustPrice')!.dirty || editForm.get('adjustPrice')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('adjustPrice')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+              >__jhiTransformTranslate__('entity.validation.required')</small
+            >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('adjustPrice')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('adjustPrice')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel"
+            >Cancel</span
+          >
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save"
+            >Save</span
+          >
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

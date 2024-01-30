@@ -1,0 +1,162 @@
+<div class="row">
+  <div class="row">
+    <div class="col-xl-8">
+        <div class="card">
+          <div
+              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">
+                <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+                  <fa-icon icon="arrow-left"></fa-icon>&nbsp;
+                </button>
+                Customer Details</h6>
+          </div>
+            <div class="card-body pb-0">
+                <div class="row align-items-center">
+                    <div class="col-md-9">
+                        <div class="ms-3">
+                            <div>
+                                <h4 class="card-title mb-2">{{customer?.firstName +" "+customer?.lastName}}</h4>
+                                <p class="mb-0 text-muted"> </p>
+                            </div>
+                            <div class="row my-4">
+                                <div class="col-md-12">
+                                    <div>
+                                      <p class="text-muted fw-medium mb-0">{{customer?.phone}}
+                                      </p>
+                                        <p class="text-muted mb-2 fw-medium">{{customer?.email}}
+                                        </p>
+                                        <p class="text-muted mb-2 fw-medium">{{customer?.address}}
+                                        </p>
+                                        <p class="text-muted mb-2 fw-medium">First Visit On :: {{customer?.createdDate}}
+                                        </p>
+                                        <button
+                                        type="submit"
+                                        [routerLink]="['/customer', customer?.id, 'edit']"
+                                        class="btn btn-primary btn-sm"
+                                        data-cy="entityEditButton"
+                                      >
+                                        <fa-icon icon="pencil-alt"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                      </button>
+                        
+                                    </div>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                        </div>
+                    </div><!-- end col -->
+                </div><!-- end row -->
+            </div><!-- end card body -->
+        </div><!-- end card -->
+        <div class="row">
+
+          <!-- Earnings (Monthly) Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                  Total Amount Due</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalDueTillDate}}</div>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    
+          <!-- Earnings (Monthly) Card Example -->
+          <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                  Total Amount Paid Till Date</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalPaidAmounttillDate}}</div>
+                          </div>
+                          <div class="col-auto">
+                              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+<div>
+  <h4>Invoices</h4>
+  <div class="table-responsive table-entities" id="entities" *ngIf="invoices && invoices.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <!-- <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.invoice.id">__jhiTransformTranslate__('shannoAppUiApp.invoice.id')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th> -->
+          <th scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.invoice.issueDate">IssueDate</span>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.invoice.dueDate">Due Date</span>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.invoice.amount">Amount</span>
+            </div>
+          </th>
+          <th scope="col">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.invoice.amount">Due Amount</span>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices;" data-cy="entityTable">
+          <!-- <td>
+            <a [routerLink]="['/invoice', invoice.id, 'view']">{{ invoice.id }}</a>
+          </td> -->
+          <td>{{ invoice.issueDate | formatMediumDate }}</td>
+          <td>{{ invoice.dueDate | formatMediumDate }}</td>
+          <td>{{ invoice.amount }}</td>
+           <td>{{ invoice.payment?.dueAmount }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/invoice', invoice.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">view</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/invoice', invoice.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">edit</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container">
+  <h4>Add Products To Order</h4>
+  <div class="row">
+    
+    <!-- Available Products -->
+    <div class="col">
+      <h6>Available Products</h6>
+      <input type="text" class="form-control mb-2" placeholder="search name" [(ngModel)]="searchText" (input)="onInputChange($event)">
+      <div style="height: 400px;
+      overflow: auto;">
+        <div *ngFor="let product of availableProducts">
+          <div class="card m-2" style="width: 95%;" (click)="toggleSelection(product)" [ngClass]="isSelected(product)? 'bg-success' : 'bg-light'">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">price :: {{product.sellingPrice}}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Selected Products -->
+    <div class="col">
+      <h6>Selected Products</h6>
+      <div class="mt-5" style="height: 400px;
+      overflow: auto;">
+        <div *ngFor="let selectedProduct of selectedProducts1;let i = index;">
+          <div class="card m-2" style="width: 95%;">
+            <div class="card-body">
+              <h5 class="card-title" class="float:left">{{ selectedProduct.name }}</h5>
+              <p class="card-text">price :: {{selectedProduct.sellingPrice}}</p>
+              <button class="btn btn-sm btn-danger" (click)="removeProduct(i)">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 mb-2" style="float: right">
+    <button
+      type="button"
+      id="cancel-save"
+      data-cy="entityCreateCancelButton"
+      class="btn btn-secondary"
+      (click)="cancel()"
+    >
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+    </button>
+  
+    <button
+      id="save-entity"
+      data-cy="entityCreateSaveButton"
+      [disabled]="selectedProducts1.length === 0"
+      class="btn btn-primary"
+      (click)="confirm()"
+    >
+      <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Done</span>
+    </button>
+  </div>
+</div>

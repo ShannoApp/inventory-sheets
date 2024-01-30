@@ -1,0 +1,144 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-payment-heading" data-cy="PaymentCreateUpdateHeading" jhiTranslate="shannoAppUiApp.payment.home.createOrEditLabel">
+        Create Or Edit
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.payment.id" for="field_id">Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="id"
+            id="field_id"
+            data-cy="id"
+            formControlName="id"
+            [readonly]="editForm.get('id')!.value != null"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.payment.paymentDate" for="field_paymentDate">Payment Date</label>
+          <div class="input-group">
+            <input
+              id="field_paymentDate"
+              data-cy="paymentDate"
+              type="text"
+              class="form-control"
+              name="paymentDate"
+              ngbDatepicker
+              #paymentDateDp="ngbDatepicker"
+              formControlName="paymentDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="paymentDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="editForm.get('paymentDate')!.invalid && (editForm.get('paymentDate')!.dirty || editForm.get('paymentDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('paymentDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+              >__jhiTransformTranslate__('entity.validation.required')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.payment.amount" for="field_amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+          <div *ngIf="editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('amount')?.errors?.required" jhiTranslate="entity.validation.required"
+              >__jhiTransformTranslate__('entity.validation.required')</small
+            >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('amount')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small class="form-text text-danger" [hidden]="!editForm.get('amount')?.errors?.number" jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.payment.partialAmount" for="field_partialAmount">Partial Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="partialAmount"
+            id="field_partialAmount"
+            data-cy="partialAmount"
+            formControlName="partialAmount"
+          />
+          <div
+            *ngIf="
+              editForm.get('partialAmount')!.invalid && (editForm.get('partialAmount')!.dirty || editForm.get('partialAmount')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('partialAmount')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('partialAmount')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.payment.dueAmount" for="field_dueAmount">Due Amount</label>
+          <input type="number" class="form-control" name="dueAmount" id="field_dueAmount" data-cy="dueAmount" formControlName="dueAmount" />
+          <div *ngIf="editForm.get('dueAmount')!.invalid && (editForm.get('dueAmount')!.dirty || editForm.get('dueAmount')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dueAmount')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('dueAmount')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel"
+            >Cancel</span
+          >
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save"
+            >Save</span
+          >
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

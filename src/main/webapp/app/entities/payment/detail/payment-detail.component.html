@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="payment">
+      <h2 data-cy="paymentDetailsHeading">
+        <span jhiTranslate="shannoAppUiApp.payment.detail.title">__jhiTransformTranslate__('shannoAppUiApp.payment.detail.title')</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="shannoAppUiApp.payment.id">__jhiTransformTranslate__('shannoAppUiApp.payment.id')</span></dt>
+        <dd>
+          <span>{{ payment.id }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.payment.paymentDate">__jhiTransformTranslate__('shannoAppUiApp.payment.paymentDate')</span>
+        </dt>
+        <dd>
+          <span>{{ payment.paymentDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.payment.amount">__jhiTransformTranslate__('shannoAppUiApp.payment.amount')</span></dt>
+        <dd>
+          <span>{{ payment.amount }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="shannoAppUiApp.payment.partialAmount">__jhiTransformTranslate__('shannoAppUiApp.payment.partialAmount')</span>
+        </dt>
+        <dd>
+          <span>{{ payment.partialAmount }}</span>
+        </dd>
+        <dt><span jhiTranslate="shannoAppUiApp.payment.dueAmount">__jhiTransformTranslate__('shannoAppUiApp.payment.dueAmount')</span></dt>
+        <dd>
+          <span>{{ payment.dueAmount }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/payment', payment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

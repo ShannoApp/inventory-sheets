@@ -1,0 +1,94 @@
+entity Business {
+    name String required minlength(2),
+    website String,
+    email String,
+    isDeflaut Boolean,
+    phone String,
+    createdDate Instant,
+    modifiedDate Instant
+}
+
+entity Product {
+	id String,
+    name String required minlength(2),
+    description String,
+    unit String,
+    sellingPrice Double required min(0),
+    purchasePrice Double required min(0),
+    minStockToMaintain Double required min(0),
+    openingQuantity Integer required min(0),
+    asOfDate LocalDate required,
+    location String,
+    createdDate Instant,
+    modifiedDate Instant
+}
+
+entity Customer {
+    id String,
+    firstName String required minlength(2),
+    lastName String required minlength(2),
+    email String,
+    phone String required,
+    address String,
+    createdDate Instant,
+    modifiedDate Instant
+}
+
+entity Unit {
+    id String,
+    name String required minlength(2),
+    description String,
+    createdDate Instant,
+    modifiedDate Instant
+}
+
+entity Category {
+    id String,
+    name String required minlength(2),
+    description String,
+    createdDate Instant,
+    modifiedDate Instant
+}
+
+entity BillingItem {
+    id String,
+    quantity Integer required min(1),
+    unitPrice Double required min(0),
+    adjustPrice Double required min(0),
+}
+
+entity StockSummary {
+  id String,
+  currentStockQuantity Integer required min(0),
+  minimumStockQuantity Integer min(0),
+  maximumStockQuantity Integer min(0),
+  lastPurchaseDate LocalDate,
+  lastPurchaseQuantity Integer min(0),
+  lastSaleDate LocalDate,
+  lastSaleQuantity Integer min(0),
+}
+
+entity Invoice {
+  id String,
+  invoiceNumber String required minlength(1),
+  issueDate LocalDate required,
+  dueDate LocalDate required,
+  amount Double required min(0),
+}
+
+enum PaymentType {
+  CREDIT_CARD, DEBIT_CARD, CASH, BANK_TRANSFER, UPI
+}
+
+// Enum for PaymentStatus
+enum PaymentStatus {
+  PENDING, PARTIAL, PAID, FAILED
+}
+
+entity Payment {
+  id String,
+  paymentDate LocalDate required,
+  amount Double required min(0),
+  partialAmount Double min(0),
+  dueAmount Double min(0)
+}

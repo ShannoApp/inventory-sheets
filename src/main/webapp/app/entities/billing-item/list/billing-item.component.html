@@ -1,0 +1,116 @@
+<div>
+  <h2 id="page-heading" data-cy="BillingItemHeading">
+    <span jhiTranslate="shannoAppUiApp.billingItem.home.title">__jhiTransformTranslate__('shannoAppUiApp.billingItem.home.title')</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.billingItem.home.refreshListLabel"
+          >Refresh Table</span
+        >
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-billing-item"
+        [routerLink]="['/billing-item/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="shannoAppUiApp.billingItem.home.createLabel"
+          >Create New</span
+        >
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="billingItems?.length === 0">
+    <span jhiTranslate="shannoAppUiApp.billingItem.home.notFound"
+      >__jhiTransformTranslate__('shannoAppUiApp.billingItem.home.notFound')</span
+    >
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="billingItems && billingItems.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.billingItem.id">__jhiTransformTranslate__('shannoAppUiApp.billingItem.id')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="quantity">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.billingItem.quantity"
+                >__jhiTransformTranslate__('shannoAppUiApp.billingItem.quantity')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="unitPrice">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.billingItem.unitPrice"
+                >__jhiTransformTranslate__('shannoAppUiApp.billingItem.unitPrice')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="adjustPrice">
+            <div class="d-flex">
+              <span jhiTranslate="shannoAppUiApp.billingItem.adjustPrice"
+                >__jhiTransformTranslate__('shannoAppUiApp.billingItem.adjustPrice')</span
+              >
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let billingItem of billingItems; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/billing-item', billingItem.id, 'view']">{{ billingItem.id }}</a>
+          </td>
+          <td>{{ billingItem.quantity }}</td>
+          <td>{{ billingItem.unitPrice }}</td>
+          <td>{{ billingItem.adjustPrice }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/billing-item', billingItem.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">__jhiTransformTranslate__('entity.action.view')</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/billing-item', billingItem.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">__jhiTransformTranslate__('entity.action.edit')</span>
+              </button>
+
+              <button type="submit" (click)="delete(billingItem)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"
+                  >Delete</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

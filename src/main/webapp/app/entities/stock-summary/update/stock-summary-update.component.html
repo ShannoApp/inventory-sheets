@@ -1,0 +1,266 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" [formGroup]="editForm">
+      <h2
+        id="jhi-stock-summary-heading"
+        data-cy="StockSummaryCreateUpdateHeading"
+        jhiTranslate="shannoAppUiApp.stockSummary.home.createOrEditLabel"
+      >
+        Create Or Edit
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.id" for="field_id">Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="id"
+            id="field_id"
+            data-cy="id"
+            formControlName="id"
+            [readonly]="editForm.get('id')!.value != null"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.currentStockQuantity" for="field_currentStockQuantity"
+            >Current Stock Quantity</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="currentStockQuantity"
+            id="field_currentStockQuantity"
+            data-cy="currentStockQuantity"
+            formControlName="currentStockQuantity"
+          />
+          <div
+            *ngIf="
+              editForm.get('currentStockQuantity')!.invalid &&
+              (editForm.get('currentStockQuantity')!.dirty || editForm.get('currentStockQuantity')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('currentStockQuantity')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+              >__jhiTransformTranslate__('entity.validation.required')</small
+            >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('currentStockQuantity')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('currentStockQuantity')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.minimumStockQuantity" for="field_minimumStockQuantity"
+            >Minimum Stock Quantity</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="minimumStockQuantity"
+            id="field_minimumStockQuantity"
+            data-cy="minimumStockQuantity"
+            formControlName="minimumStockQuantity"
+          />
+          <div
+            *ngIf="
+              editForm.get('minimumStockQuantity')!.invalid &&
+              (editForm.get('minimumStockQuantity')!.dirty || editForm.get('minimumStockQuantity')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('minimumStockQuantity')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('minimumStockQuantity')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.maximumStockQuantity" for="field_maximumStockQuantity"
+            >Maximum Stock Quantity</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="maximumStockQuantity"
+            id="field_maximumStockQuantity"
+            data-cy="maximumStockQuantity"
+            formControlName="maximumStockQuantity"
+          />
+          <div
+            *ngIf="
+              editForm.get('maximumStockQuantity')!.invalid &&
+              (editForm.get('maximumStockQuantity')!.dirty || editForm.get('maximumStockQuantity')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('maximumStockQuantity')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('maximumStockQuantity')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.lastPurchaseDate" for="field_lastPurchaseDate"
+            >Last Purchase Date</label
+          >
+          <div class="input-group">
+            <input
+              id="field_lastPurchaseDate"
+              data-cy="lastPurchaseDate"
+              type="text"
+              class="form-control"
+              name="lastPurchaseDate"
+              ngbDatepicker
+              #lastPurchaseDateDp="ngbDatepicker"
+              formControlName="lastPurchaseDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="lastPurchaseDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.lastPurchaseQuantity" for="field_lastPurchaseQuantity"
+            >Last Purchase Quantity</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="lastPurchaseQuantity"
+            id="field_lastPurchaseQuantity"
+            data-cy="lastPurchaseQuantity"
+            formControlName="lastPurchaseQuantity"
+          />
+          <div
+            *ngIf="
+              editForm.get('lastPurchaseQuantity')!.invalid &&
+              (editForm.get('lastPurchaseQuantity')!.dirty || editForm.get('lastPurchaseQuantity')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('lastPurchaseQuantity')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('lastPurchaseQuantity')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.lastSaleDate" for="field_lastSaleDate">Last Sale Date</label>
+          <div class="input-group">
+            <input
+              id="field_lastSaleDate"
+              data-cy="lastSaleDate"
+              type="text"
+              class="form-control"
+              name="lastSaleDate"
+              ngbDatepicker
+              #lastSaleDateDp="ngbDatepicker"
+              formControlName="lastSaleDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="lastSaleDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="shannoAppUiApp.stockSummary.lastSaleQuantity" for="field_lastSaleQuantity"
+            >Last Sale Quantity</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="lastSaleQuantity"
+            id="field_lastSaleQuantity"
+            data-cy="lastSaleQuantity"
+            formControlName="lastSaleQuantity"
+          />
+          <div
+            *ngIf="
+              editForm.get('lastSaleQuantity')!.invalid &&
+              (editForm.get('lastSaleQuantity')!.dirty || editForm.get('lastSaleQuantity')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('lastSaleQuantity')?.errors?.min"
+              jhiTranslate="entity.validation.min"
+              
+              >Min value is 0</small
+            >
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('lastSaleQuantity')?.errors?.number"
+              jhiTranslate="entity.validation.number"
+              >__jhiTransformTranslate__('entity.validation.number')</small
+            >
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <!-- <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel"
+            >Cancel</span
+          >
+        </button> -->
+
+        <!-- <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save"
+            >Save</span
+          >
+        </button> -->
+      </div>
+    </form>
+  </div>
+</div>

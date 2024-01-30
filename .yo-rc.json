@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "baseName": "shannoApp-ui",
+    "clientFramework": "angular",
+    "clientTestFrameworks": [],
+    "clientTheme": "morph",
+    "clientThemeVariant": "primary",
+    "creationTimestamp": 1705603838048,
+    "devServerPort": 4200,
+    "enableTranslation": false,
+    "entities": ["Business", "Product", "Customer", "Unit", "Category", "BillingItem", "StockSummary", "Invoice", "Payment"],
+    "jhipsterVersion": "8.0.0-rc.1",
+    "lastLiquibaseTimestamp": 1705604378000,
+    "microfrontend": null,
+    "microfrontends": [],
+    "nativeLanguage": "en",
+    "skipServer": true,
+    "testFrameworks": [],
+    "withAdminUi": true
+  }
+}
